@@ -1,5 +1,5 @@
 # ReAct_Agent
-Implemented ReAct (React + Act) agentic architecture allowing an LLM to demonstrate Chain-of-Thought reasoning with access to tools for a given prompt.
+Implemented ReAct (Reasoning + Action) agentic architecture allowing an LLM to demonstrate Chain-of-Thought reasoning with access to tools for a given prompt.
 
 ## Example Run
 **Prompt:** *"What is the square root of mass of the earth multiplied by 10?"*
