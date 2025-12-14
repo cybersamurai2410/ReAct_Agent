@@ -88,15 +88,13 @@ class MCPToolClient:
             raise RuntimeError("MCP session not initialized")
 
         result = await self.session.call_tool(tool_name, arguments=arguments)
-
-        # The SDK returns a structured tool result; we normalize into plain Python data.
-        # Many MCP servers return JSON-serializable objects in text form, or already as dict-like content.
+        
         return self._normalize_tool_result(result)
 
     def _normalize_tool_result(self, result: Any) -> Any:
         """
         MCP tool results often contain `content` items (text, json, images).
-        We keep it simple for an automation agent: return a compact JSON-like value when possible.
+        Return a compact JSON-like value when possible.
         """
         if result is None:
             return None
@@ -172,7 +170,7 @@ class ReActAgent:
         """
         Returns ("action", action_dict) or ("final", final_text).
 
-        We intentionally keep parsing strict so the agent doesn't drift.
+        Intentionally keep parsing strict so the agent doesn't drift.
         """
         if not text:
             raise ValueError("Empty model output")
