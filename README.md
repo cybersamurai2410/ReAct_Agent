@@ -1,6 +1,16 @@
 # ReAct AI Agent with MCP for Workflow Automation
 AI agent following ReAct (Reasoning + Action) architecture with CLI interface connected to MCP server for tool calling (email, calendar, social media, web search etc.) to automate daily workflows and schedule tasks from user prompts.
 
+* MCP server runs separately and exposes tools.
+* Each MCP tool maps to one full n8n workflow.
+* User sends prompt to LLM.
+* LLM returns structured JSON (tool + args).
+* Agent calls MCP client with JSON request.
+* MCP server executes the mapped n8n workflow.
+* n8n handles integrations, auth, retries.
+* Result passed back to agent as JSON response.
+* Agent either executes another tool action from chain-of-thought or generates final response.
+
 ## Example Run
 **Input:**
 ```bash
