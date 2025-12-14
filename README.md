@@ -2,8 +2,12 @@
 AI agent following ReAct (Reasoning + Action) architecture with CLI interface connected to MCP server for tool calling (email, calendar, social media, web search etc.) to automate daily workflows and schedule tasks from user prompts.
 
 ## Example Run
-**Prompt:** *"Summarise my unread emails from today, create tasks for anything urgent, and schedule follow-ups tomorrow at 10am."*
+**Input:**
+```bash
+python agents.py --prompt "Summarise unread emails and schedule follow-ups tomorrow at 10am"
+```
 
+**Output:**
 ```bash
 Thought: The user wants inbox processing, task creation, and calendar scheduling.
 I need to first fetch unread emails from today using the email tool.
