@@ -1,27 +1,49 @@
-# ReAct_Agent
-Implemented ReAct (Reasoning + Action) agentic architecture allowing an LLM to demonstrate Chain-of-Thought reasoning with access to tools for a given prompt.
+# ReAct AI Agent with MCP for Workflow Automation
+AI agent following ReAct (Reasoning + Action) architecture with CLI interface connected to MCP server for tool calling (email, calendar, social media, web search etc.) to automate daily workflows and schedule tasks from user prompts.
 
 ## Example Run
-**Prompt:** *"What is the square root of mass of the earth multiplied by 10?"*
+**Prompt:** *"Summarise my unread emails from today, create tasks for anything urgent, and schedule follow-ups tomorrow at 10am."*
+
 ```bash
-Thought: I need to find the mass of Earth on Wikipedia
-Action: wikipedia: mass of earth
+Thought: The user wants inbox processing, task creation, and calendar scheduling.
+I need to first fetch unread emails from today using the email tool.
+
+Action: email.fetch_unread
 PAUSE
-[('wikipedia', 'mass of earth')]
-Observation: <span class="searchmatch">Earth</span> <span class="searchmatch">mass</span> (denoted as M🜨, M♁ or ME, where 🜨 and ♁ are
-the astronomical symbols for <span class="searchmatch">Earth</span>), is a unit <span class="searchmatch">of</span> <span class="searchmatch">mass</span> equal to the <span class="searchmatch">mass</span> <span class="searchmatch">of</span> the planet <span class="searchmatch">Earth</span>
-Thought: The observation didn't directly give me the mass of Earth, I need to look up the mass of Earth on Wikipedia again
-Action: wikipedia: mass of earth in kg
+[('email.fetch_unread', {'date': 'today'})]
+
+Observation: Retrieved 7 unread emails. 
+3 emails are marked high priority related to meetings and deadlines.
+
+Thought: I should summarise the unread emails and identify urgent items.
+Then I need to create tasks for the urgent emails.
+
+Action: task.create
 PAUSE
-[('wikipedia', 'mass of earth in kg')]
-Observation: estimate for the <span class="searchmatch">mass</span> <span class="searchmatch">of</span> <span class="searchmatch">Earth</span> is M🜨 = 5.9722×1024 <span class="searchmatch">kg</span>, with a relative uncertainty <span class="searchmatch">of</span> 10−4. 
-It is equivalent to an average density <span class="searchmatch">of</span> 5515 <span class="searchmatch">kg</span>/m3. Using the
-Thought: I have the mass of Earth, now I need to multiply it by 10 and take the square root
-Action: calculate: (5.9722e24 * 10)**0.5
+[('task.create', {
+  'tasks': [
+    {'title': 'Reply to client about contract deadline', 'priority': 'high'},
+    {'title': 'Prepare slides for tomorrow’s meeting', 'priority': 'high'},
+    {'title': 'Confirm availability for project kickoff call', 'priority': 'high'}
+  ]
+})]
+
+Observation: 3 tasks successfully created in the task manager.
+
+Thought: Now I need to schedule follow-up reminders for tomorrow at 10am.
+
+Action: calendar.create_event
 PAUSE
-[('calculate', '(5.9722e24 * 10)**0.5')]
-Observation: 7728001035196.618
-Thought: I think I have found the answer
+[('calendar.create_event', {
+  'title': 'Email follow-ups',
+  'date': 'tomorrow',
+  'time': '10:00'
+})]
+
+Observation: Calendar event successfully created.
+
+Thought: I should provide the user with a concise summary of what was done.
+
 Action:
-Answer: The square root of the mass of the earth multiplied by 10 is 7728001035196.618.
+Answer: I summarised your unread emails, created tasks for urgent items, and scheduled follow-up reminders for tomorrow at 10am.
 ```
