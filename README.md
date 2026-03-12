@@ -30,7 +30,7 @@ A Python CLI orchestrator where:
 flowchart TD
     U[User Prompt via CLI] --> O[AgentOrchestrator]
     O --> P[TaskPlanner]
-    P --> TP[Task Plan JSON tasks[]]
+    P --> TP["Task Plan JSON tasks[]"]
 
     TP --> SA1[SubAgent A]
     TP --> SA2[SubAgent B]
