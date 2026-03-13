@@ -156,7 +156,7 @@ python react_agent.py \
 Summarize unread emails, draft a social update from key highlights, and schedule follow-up reminders tomorrow at 10am.
 ```
 
-### Planned Tasks (illustrative)
+### Planned Tasks 
 ```json
 {
   "tasks": [
@@ -167,19 +167,19 @@ Summarize unread emails, draft a social update from key highlights, and schedule
 }
 ```
 
-### Model Routing Decisions (illustrative)
+### Model Routing Decisions 
 - Email subagent (`low`) → **Ollama / llama3**
 - Social subagent (`medium`) → **Ollama / mistral**
 - Calendar subagent (`high`) → **OpenAI / gpt-4o**
 
-### Parallel Subagent Work (illustrative)
+### Parallel Subagent Work 
 - SubAgent(email) calls MCP tool: `email_process`
 - SubAgent(social) calls MCP tool: `social_post`
 - SubAgent(calendar) calls MCP tool: `calendar_schedule`
 
 All run concurrently and return individual results.
 
-### Aggregated Final Output (illustrative)
+### Aggregated Final Output 
 ```text
 Done. I summarized your unread emails and highlighted urgent threads, drafted and posted a social update with the key highlights, and scheduled follow-up reminders for tomorrow at 10:00.
 ```
